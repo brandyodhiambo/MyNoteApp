@@ -2,9 +2,7 @@ package com.brandyodhiambo.mynote.feature_notes.domain.model
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.brandyodhiambo.mynote.ui.theme.blue
-import com.brandyodhiambo.mynote.ui.theme.purple
-import com.brandyodhiambo.mynote.ui.theme.teal
+import com.brandyodhiambo.mynote.ui.theme.*
 
 @Entity
 data class Note(
@@ -15,7 +13,7 @@ data class Note(
     @PrimaryKey val id: Int? = null
 ){
     companion object{
-        val noteColors = listOf(purple, blue, teal)
+        val noteColors = listOf(RedOrange, LightGreen, Violet, BabyBlue, RedPink)
     }
 }
 class InvalidNoteException(message: String): Exception(message)
