@@ -9,6 +9,7 @@ import com.brandyodhiambo.mynote.feature_notes.data.repository.NoteRespositoryIm
 import com.brandyodhiambo.mynote.feature_notes.domain.repository.NoteRepository
 import com.brandyodhiambo.mynote.feature_notes.domain.usecase.*
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -36,8 +37,8 @@ object RepositoryModule {
     }
     @Provides
     @Singleton
-    fun provideAuthRepository(firebaseAuth: FirebaseAuth):AuthRepository{
-        return AuthRepostoryImpl(firebaseAuth)
+    fun provideAuthRepository(firebaseAuth: FirebaseAuth,firestore: FirebaseFirestore):AuthRepository{
+        return AuthRepostoryImpl(firebaseAuth,firestore)
     }
 
     @Provides
@@ -51,4 +52,6 @@ object RepositoryModule {
     fun provideSignUpUseCase(authRepository: AuthRepository):SignUpUseCase{
         return SignUpUseCase(authRepository)
     }
+
+
 }

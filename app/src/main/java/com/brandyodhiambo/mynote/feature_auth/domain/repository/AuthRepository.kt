@@ -1,7 +1,10 @@
 package com.brandyodhiambo.mynote.feature_auth.domain.repository
 
-interface AuthRepository {
-    suspend fun loginUser(email: String, password: String)
+import com.brandyodhiambo.mynote.feature_auth.presentation.utils.Resource
+import com.google.firebase.auth.AuthResult
 
-    suspend fun createUser(email: String, password: String)
+interface AuthRepository {
+    suspend fun loginUser(email: String, password: String):Resource<AuthResult>
+
+    suspend fun createUser(email: String, password: String):Resource<AuthResult>
 }

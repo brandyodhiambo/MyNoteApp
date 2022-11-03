@@ -1,7 +1,8 @@
 package com.brandyodhiambo.mynote.di
 
 import android.app.Application
-import androidx.room.Room
+import com.brandyodhiambo.mynote.feature_auth.domain.usecase.validation.ValidateEmail
+import com.brandyodhiambo.mynote.feature_auth.domain.usecase.validation.ValidatePassword
 import com.brandyodhiambo.mynote.feature_notes.data.data_source.NotesDatabase
 import com.brandyodhiambo.mynote.feature_notes.data.repository.NoteRespositoryImpl
 import com.brandyodhiambo.mynote.feature_notes.domain.repository.NoteRepository
@@ -23,4 +24,12 @@ object AppModule {
     fun provideDispatchers():CoroutineDispatcher{
         return Dispatchers.IO
     }
+
+    @Provides
+    @Singleton
+    fun provideEmailValidation() = ValidateEmail()
+
+    @Provides
+    @Singleton
+    fun providePasswordValidation() = ValidatePassword()
 }
