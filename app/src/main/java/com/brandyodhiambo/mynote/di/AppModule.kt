@@ -10,6 +10,8 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.Dispatchers
 import javax.inject.Singleton
 
 @Module
@@ -18,28 +20,7 @@ object AppModule {
 
     @Provides
     @Singleton
-    fun provideNoteDatabase(app:Application): NotesDatabase {
-        return Room.databaseBuilder(
-            app,
-            NotesDatabase::class.java,
-            NotesDatabase.DATABASE_NAME
-        ).build()
-    }
-
-    @Provides
-    @Singleton
-    fun provideNoteRepository(db: NotesDatabase): NoteRepository {
-        return NoteRespositoryImpl(db.noteDao)
-    }
-
-    @Provides
-    @Singleton
-    fun provideNoteUseCase(repository: NoteRepository):NoteUseCase{
-        return NoteUseCase(
-            getNotes = GetNotes(repository),
-            deleteNote = DeleteNote(repository),
-            addNote = AddNote(repository),
-            getNote = GetNote(repository)
-        )
+    fun provideDispatchers():CoroutineDispatcher{
+        return Dispatchers.IO
     }
 }

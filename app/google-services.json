@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1066391637101",
+    "project_id": "noteapp-254f1",
+    "storage_bucket": "noteapp-254f1.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1066391637101:android:0d812d793714681492c364",
+        "android_client_info": {
+          "package_name": "com.brandyodhiambo.mynote"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1066391637101-thd6i03uqgp7dl5aj7kk58dc934thm32.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAQO55ZNKM5GXC2zzRXf1WbwyCdDE10rpA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1066391637101-thd6i03uqgp7dl5aj7kk58dc934thm32.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
