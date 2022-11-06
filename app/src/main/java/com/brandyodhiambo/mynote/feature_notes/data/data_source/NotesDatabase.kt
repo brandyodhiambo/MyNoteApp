@@ -6,7 +6,8 @@ import com.brandyodhiambo.mynote.feature_notes.domain.model.Note
 
 @Database(
     entities = [Note::class],
-    version = 1
+    version = 1,
+    exportSchema = false
 )
 abstract class NotesDatabase :RoomDatabase() {
     abstract val noteDao:NoteDao

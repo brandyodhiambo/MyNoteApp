@@ -27,31 +27,11 @@ object RepositoryModule {
 
     @Provides
     @Singleton
-    fun provideNoteUseCase(repository: NoteRepository): NoteUseCase {
-        return NoteUseCase(
-            getNotes = GetNotes(repository),
-            deleteNote = DeleteNote(repository),
-            addNote = AddNote(repository),
-            getNote = GetNote(repository)
-        )
-    }
-    @Provides
-    @Singleton
     fun provideAuthRepository(firebaseAuth: FirebaseAuth,firestore: FirebaseFirestore):AuthRepository{
         return AuthRepostoryImpl(firebaseAuth,firestore)
     }
 
-    @Provides
-    @Singleton
-    fun provideLoginUseCase(authRepository: AuthRepository):LoginUseCase{
-        return LoginUseCase(authRepository)
-    }
 
-    @Provides
-    @Singleton
-    fun provideSignUpUseCase(authRepository: AuthRepository):SignUpUseCase{
-        return SignUpUseCase(authRepository)
-    }
 
 
 }
