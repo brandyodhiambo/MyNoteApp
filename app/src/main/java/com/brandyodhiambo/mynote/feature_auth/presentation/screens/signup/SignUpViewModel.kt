@@ -8,7 +8,6 @@ import androidx.lifecycle.viewModelScope
 import com.brandyodhiambo.mynote.feature_auth.domain.usecase.SignUpUseCase
 import com.brandyodhiambo.mynote.feature_auth.domain.usecase.validation.ValidateEmail
 import com.brandyodhiambo.mynote.feature_auth.domain.usecase.validation.ValidatePassword
-import com.brandyodhiambo.mynote.feature_auth.presentation.screens.login.LoginScreenVaidationEvents
 import com.brandyodhiambo.mynote.feature_auth.presentation.utils.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.channels.Channel
@@ -61,38 +60,37 @@ class SignUpViewModel @Inject constructor(
             emailError = emailResult.errorMessage,
             passwordError = passwordResult.errorMessage
         )
-        if(!hasError){
-            Timber.d("onEvent Error: $hasError")
+        if(hasError){
+            return
         }
 
         viewModelScope.launch {
-            _signUpValidationChannel.send(SignUpValidationEvent.Success)
+            _signUpValidationChannel.send(SignUpValidationEvent.SuccessfulValidation)
         }
     }
 
     fun signUpUser(){
         signUpState = signUpState.copy(showProgressBar = true)
         viewModelScope.launch {
-            when(signUpUseCase.signUpUser(signUpState.email, signUpState.password)){
+            val result = signUpUseCase.signUpUser(signUpState.email, signUpState.password)
+            when(result){
                 is Resource.Success ->{
                     signUpState = signUpState.copy(showProgressBar = false)
-                    _signUpValidationChannel.send(SignUpValidationEvent.ValidationSuccess)
+                    _signUpValidationChannel.send(SignUpValidationEvent.SuccessfulRegistration(result.message))
                 }
                 is Resource.Error ->{
                     signUpState = signUpState.copy(showProgressBar = false)
-                    val errorMessage = "An unexpected error occurred"
-                    _signUpValidationChannel.send(SignUpValidationEvent.ValidationError(errorMessage))
+                    val errorMessage = result.message ?: "An unknown error occurred"
+                    _signUpValidationChannel.send(SignUpValidationEvent.FailedRegistration(errorMessage))
                 }
                 else -> Unit
             }
         }
     }
-
-
+    sealed class SignUpValidationEvent{
+        data class SuccessfulRegistration(val message:String?):SignUpValidationEvent()
+        object SuccessfulValidation:SignUpValidationEvent()
+        data class FailedRegistration(val errorMessage:String?):SignUpValidationEvent()
+    }
 }
 
-sealed class SignUpValidationEvent{
-    object ValidationSuccess:SignUpValidationEvent()
-    object Success:SignUpValidationEvent()
-    data class ValidationError(val errorMessage:String?):SignUpValidationEvent()
-}

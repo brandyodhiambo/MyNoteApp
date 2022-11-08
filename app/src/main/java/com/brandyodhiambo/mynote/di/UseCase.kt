@@ -1,8 +1,7 @@
 package com.brandyodhiambo.mynote.di
 
 import com.brandyodhiambo.mynote.feature_auth.domain.repository.AuthRepository
-import com.brandyodhiambo.mynote.feature_auth.domain.usecase.LoginUseCase
-import com.brandyodhiambo.mynote.feature_auth.domain.usecase.SignUpUseCase
+import com.brandyodhiambo.mynote.feature_auth.domain.usecase.*
 import com.brandyodhiambo.mynote.feature_notes.domain.repository.NoteRepository
 import com.brandyodhiambo.mynote.feature_notes.domain.usecase.*
 import dagger.Module
@@ -33,4 +32,16 @@ object UseCase {
     @Provides
     @Singleton
     fun provideSignUpUseCase(authRepository: AuthRepository) = SignUpUseCase(authRepository)
+
+    @Provides
+    @Singleton
+    fun provideAutoLoginUseCase(authRepository: AuthRepository) = AutoLoginUseCase(authRepository)
+
+    @Provides
+    @Singleton
+    fun provideAutoSignOutUseCase(authRepository: AuthRepository) = AutoSignOutUseCase(authRepository)
+
+    @Provides
+    @Singleton
+    fun provideForgotPasswordUseCase(authRepository: AuthRepository) = ForgotPasswordCase(authRepository)
 }

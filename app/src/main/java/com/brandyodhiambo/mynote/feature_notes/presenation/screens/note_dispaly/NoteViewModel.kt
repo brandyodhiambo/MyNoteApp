@@ -4,6 +4,7 @@ import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.brandyodhiambo.mynote.feature_auth.domain.usecase.AutoSignOutUseCase
 import com.brandyodhiambo.mynote.feature_notes.domain.model.Note
 import com.brandyodhiambo.mynote.feature_notes.domain.usecase.NoteUseCase
 import com.brandyodhiambo.mynote.feature_notes.domain.utils.NoteOrder
@@ -17,7 +18,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class NotesViewModel @Inject constructor(
-    private val noteUseCases: NoteUseCase
+    private val noteUseCases: NoteUseCase,
+    private val autoSignOutUseCase: AutoSignOutUseCase
 ) : ViewModel() {
 
     private val _state = mutableStateOf(NotesState())
@@ -71,5 +73,10 @@ class NotesViewModel @Inject constructor(
                 )
             }
             .launchIn(viewModelScope)
+    }
+    fun signOut() {
+        viewModelScope.launch {
+            autoSignOutUseCase.autoSignOut()
+        }
     }
 }

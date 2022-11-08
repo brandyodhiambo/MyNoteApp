@@ -21,9 +21,9 @@ import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.brandyodhiambo.mynote.destinations.NotesScreenDestination
 import com.brandyodhiambo.mynote.feature_notes.domain.model.Note
 import com.brandyodhiambo.mynote.feature_notes.presenation.screens.add_note.component.TransparentHintTextField
-import com.brandyodhiambo.mynote.feature_notes.presenation.screens.destinations.NotesScreenDestination
 import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 import kotlinx.coroutines.flow.collectLatest

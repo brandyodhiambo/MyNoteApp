@@ -8,6 +8,7 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.ExitToApp
 import androidx.compose.material.icons.filled.KeyboardArrowDown
 import androidx.compose.material.icons.filled.Refresh
 import androidx.compose.runtime.Composable
@@ -17,15 +18,17 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.brandyodhiambo.mynote.feature_notes.presenation.screens.destinations.AddEditNoteScreenDestination
+import com.brandyodhiambo.mynote.destinations.AddEditNoteScreenDestination
+import com.brandyodhiambo.mynote.destinations.LoginScreenDestination
 import com.brandyodhiambo.mynote.feature_notes.presenation.screens.note_dispaly.components.NoteItem
 import com.brandyodhiambo.mynote.feature_notes.presenation.screens.note_dispaly.components.OrderSection
+import com.brandyodhiambo.mynote.ui.theme.Teal200
 import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 import kotlinx.coroutines.launch
 
 @Composable
-@Destination(start = true)
+@Destination
 fun NotesScreen(
     navigator: DestinationsNavigator,
     viewModel: NotesViewModel = hiltViewModel()
@@ -35,6 +38,25 @@ fun NotesScreen(
     val scope = rememberCoroutineScope()
 
     Scaffold(
+        topBar = {
+            TopAppBar(
+                title = { Text(text = "My Notes") },
+                actions = {
+                    IconButton(onClick = {
+                        viewModel.signOut()
+                        navigator.popBackStack()
+                        navigator.navigate(LoginScreenDestination)
+                    }) {
+                        Icon(
+                            imageVector = Icons.Default.ExitToApp,
+                            contentDescription = "logout"
+                        )
+                    }
+                },
+                backgroundColor = Teal200,
+                contentColor = Color.White
+            )
+        },
         floatingActionButton = {
             FloatingActionButton(
                 onClick = {
@@ -65,7 +87,7 @@ fun NotesScreen(
                 Text(
                     text = "Your note",
                     color = Color.Black,
-                    style = MaterialTheme.typography.h4
+                    style = MaterialTheme.typography.h5
                 )
                 IconButton(
                     onClick = {
@@ -102,9 +124,8 @@ fun NotesScreen(
                         modifier = Modifier
                             .fillMaxWidth()
                             .clickable {
-
-                                //todo
-                               // navigator.navigate(AddEditNoteScreenDestination.route + "?noteId=${note.id}&noteColor=${note.color}")
+                                navigator.navigate(AddEditNoteScreenDestination(note.color))
+                                // navigator.navigate(AddEditNoteScreenDestination.route + "?noteId=${note.id}&noteColor=${note.color}")
                             },
                         onDeleteClick = {
                             viewModel.onEvent(NotesEvent.DeleteNote(note))
