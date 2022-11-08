@@ -6,4 +6,4 @@
 - Firebase firestore.
 - Firebase auth
 - Work manager.
-- Jetack compose
+- Jetpack compose
