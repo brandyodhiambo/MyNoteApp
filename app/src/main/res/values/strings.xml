@@ -1,3 +1,7 @@
 <resources>
-    <string name="app_name">MyNote</string>
+    <string name="app_name">My Notebook</string>
+    <string name="notification_channel_name">Notification Channel</string>
+    <string name="upload_starting">Uploading notes has started.....🎬🎬</string>
+    <string name="upload_successful">Uploading notes is successful🤗❤️🤗.</string>
+    <string name="upload_failed">Uploading notes has failed😔.Retrying in a minute 🤗❤️.</string>
 </resources>

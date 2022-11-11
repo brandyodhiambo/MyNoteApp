@@ -1,4 +1,4 @@
-package com.brandyodhiambo.mynote.feature_notes.presenation
+package com.brandyodhiambo.mynote.ui
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -10,6 +10,7 @@ import androidx.compose.material.Surface
 import androidx.compose.ui.Modifier
 import com.brandyodhiambo.mynote.NavGraphs
 import com.brandyodhiambo.mynote.ui.theme.MyNoteTheme
+import com.brandyodhiambo.mynote.workmanager.startPeriodicWorkRequest
 import com.ramcosta.composedestinations.DestinationsNavHost
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -29,6 +30,7 @@ class MainActivity : ComponentActivity() {
                             navGraph = NavGraphs.root,
                         )
                     }
+                    startPeriodicWorkRequest(this)
                 }
             }
         }
