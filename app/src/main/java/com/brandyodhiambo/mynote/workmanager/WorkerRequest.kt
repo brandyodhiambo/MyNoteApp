@@ -2,10 +2,10 @@ package com.brandyodhiambo.mynote.workmanager
 
 import android.content.Context
 import androidx.work.*
-import com.brandyodhiambo.mynote.utils.Constants.WORK_NAME
+import com.brandyodhiambo.mynote.workmanager.NoteWorker.Companion.WORK_NAME
 import java.util.concurrent.TimeUnit
 
-fun startOnetimeWorkRequest() {
+fun startOnetimeWorkRequest(context: Context) {
     val constraints = Constraints.Builder()
         .setRequiredNetworkType(NetworkType.CONNECTED)
         .setRequiresBatteryNotLow(true)
@@ -15,7 +15,7 @@ fun startOnetimeWorkRequest() {
         .setConstraints(constraints)
         .build()
 
-    WorkManager.getInstance().enqueue(workRequest)
+    WorkManager.getInstance(context).enqueue(workRequest)
 }
 
 fun startPeriodicWorkRequest(context: Context) {
@@ -25,15 +25,15 @@ fun startPeriodicWorkRequest(context: Context) {
         .build()
 
     val workRequest = PeriodicWorkRequestBuilder<NoteWorker>(
-        1,
-        TimeUnit.DAYS
+        15,
+        TimeUnit.MINUTES
     )
         .setConstraints(constraints)
         .build()
 
     WorkManager.getInstance(context).enqueueUniquePeriodicWork(
         WORK_NAME,
-        ExistingPeriodicWorkPolicy.KEEP,
+        ExistingPeriodicWorkPolicy.REPLACE,
         workRequest
     )
 }
