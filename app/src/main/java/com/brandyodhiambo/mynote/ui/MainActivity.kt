@@ -18,6 +18,7 @@ import com.brandyodhiambo.mynote.ui.theme.MyNoteTheme
 import com.brandyodhiambo.mynote.workmanager.utils.WorkerKeys.UPLOAD_URI
 import com.brandyodhiambo.mynote.workmanager.NoteWorker
 import com.brandyodhiambo.mynote.workmanager.NoteWorker.Companion.WORK_NAME
+import com.brandyodhiambo.mynote.workmanager.startPeriodicWorkRequest
 import com.google.firebase.firestore.FirebaseFirestore
 import com.ramcosta.composedestinations.DestinationsNavHost
 import dagger.hilt.android.AndroidEntryPoint
@@ -36,32 +37,7 @@ class MainActivity : ComponentActivity() {
                 ) {
                     val context = LocalContext.current
 
-                    val constraints = Constraints.Builder()
-                        .setRequiredNetworkType(NetworkType.CONNECTED)
-                        .setRequiresBatteryNotLow(true)
-                        .build()
-
-                    val workRequest = PeriodicWorkRequestBuilder<NoteWorker>(
-                        15,
-                        TimeUnit.MINUTES
-                    )   .setConstraints(constraints)
-                        .setBackoffCriteria(BackoffPolicy.LINEAR, PeriodicWorkRequest.MIN_BACKOFF_MILLIS, TimeUnit.MILLISECONDS)
-                        .build()
-
-                    val workInfos = WorkManager.getInstance(context)
-                        .getWorkInfosForUniqueWorkLiveData(WORK_NAME)
-                        .observeAsState()
-                        .value
-                    val uploadInfos = remember(key1 = workInfos) {
-                        workInfos?.find { it.id == workRequest.id }
-                    }
-                    val data = uploadInfos?.outputData?.getString(UPLOAD_URI)
-                    WorkManager.getInstance(context)
-                        .enqueueUniquePeriodicWork(
-                            WORK_NAME,
-                            ExistingPeriodicWorkPolicy.KEEP,
-                            workRequest
-                        )
+                    startPeriodicWorkRequest(context)
                     Scaffold() {
                         DestinationsNavHost(
                             navGraph = NavGraphs.root,

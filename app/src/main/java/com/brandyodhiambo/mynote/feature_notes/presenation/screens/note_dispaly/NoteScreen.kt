@@ -22,6 +22,7 @@ import com.brandyodhiambo.mynote.destinations.AddEditNoteScreenDestination
 import com.brandyodhiambo.mynote.destinations.LoginScreenDestination
 import com.brandyodhiambo.mynote.feature_notes.presenation.screens.note_dispaly.components.NoteItem
 import com.brandyodhiambo.mynote.feature_notes.presenation.screens.note_dispaly.components.OrderSection
+import com.brandyodhiambo.mynote.ui.Loader
 import com.brandyodhiambo.mynote.ui.theme.Teal200
 import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
@@ -117,8 +118,14 @@ fun NotesScreen(
                 )
             }
             Spacer(modifier = Modifier.height(16.dp))
+            Box(modifier = Modifier.fillMaxSize()) {
+                if(state.notes.isEmpty()){
+                    Loader()
+                }
+            }
             LazyColumn(modifier = Modifier.fillMaxSize()) {
                 items(state.notes) { note ->
+
                     NoteItem(
                         note = note,
                         modifier = Modifier
