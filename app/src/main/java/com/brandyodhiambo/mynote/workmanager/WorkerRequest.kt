@@ -29,6 +29,7 @@ fun startPeriodicWorkRequest(context: Context) {
         TimeUnit.MINUTES
     )
         .setConstraints(constraints)
+        .setBackoffCriteria(BackoffPolicy.LINEAR, PeriodicWorkRequest.MIN_BACKOFF_MILLIS, TimeUnit.MILLISECONDS)
         .build()
 
     WorkManager.getInstance(context).enqueueUniquePeriodicWork(

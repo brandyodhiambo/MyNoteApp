@@ -1,4 +1,4 @@
-package com.brandyodhiambo.mynote.utils
+package com.brandyodhiambo.mynote.workmanager.utils
 
 object WorkerKeys {
     const val UPLOAD_URI = "upload"

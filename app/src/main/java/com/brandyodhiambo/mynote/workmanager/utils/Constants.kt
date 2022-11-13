@@ -1,4 +1,4 @@
-package com.brandyodhiambo.mynote.utils
+package com.brandyodhiambo.mynote.workmanager.utils
 
 object Constants {
     const val NOTIFICATION_CHANNEL_ID = "com.brandyodhiambo.mynote.utils.notificationid"

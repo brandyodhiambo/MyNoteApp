@@ -12,9 +12,9 @@ import androidx.work.workDataOf
 import com.brandyodhiambo.mynote.R
 import com.brandyodhiambo.mynote.feature_notes.data.data_source.NotesDatabase
 import com.brandyodhiambo.mynote.feature_notes.domain.model.Note
-import com.brandyodhiambo.mynote.utils.Constants.NOTIFICATION_CHANNEL_ID
-import com.brandyodhiambo.mynote.utils.WorkerKeys.ERROR_MESSAGE
-import com.brandyodhiambo.mynote.utils.WorkerKeys.UPLOAD_URI
+import com.brandyodhiambo.mynote.workmanager.utils.Constants.NOTIFICATION_CHANNEL_ID
+import com.brandyodhiambo.mynote.workmanager.utils.WorkerKeys.ERROR_MESSAGE
+import com.brandyodhiambo.mynote.workmanager.utils.WorkerKeys.UPLOAD_URI
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import dagger.assisted.Assisted
@@ -26,16 +26,18 @@ import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.tasks.await
 import timber.log.Timber
 import java.net.HttpRetryException
+import javax.inject.Singleton
 import kotlin.random.Random
 
 @HiltWorker
-class NoteWorker @AssistedInject constructor (
+class NoteWorker @AssistedInject  constructor (
     @Assisted context: Context,
     @Assisted workerParams: WorkerParameters,
     private val notesDatabase: NotesDatabase,
     private val firebaseAuth: FirebaseAuth,
    private val db: FirebaseFirestore
 ): CoroutineWorker(context, workerParams) {
+
     companion object{
         const val WORK_NAME = "UPLOAD_WORK"
         private const val TAG = "UploadWorker"
