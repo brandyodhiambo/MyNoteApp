@@ -1,8 +1,9 @@
 # MyNoteApp
 ## Tech Stacks
-- clean architecture.
-- dependency injection `Dagger Hilt`.
-- Room Database.
-- Firebase Firestore.
-- Firebase Auth
-- work Manager.
+- Clean architecture.
+- Dependency injection `Dagger Hilt`.
+- Room database.
+- Firebase firestore.
+- Firebase auth
+- Work manager.
+- Jetpack compose
