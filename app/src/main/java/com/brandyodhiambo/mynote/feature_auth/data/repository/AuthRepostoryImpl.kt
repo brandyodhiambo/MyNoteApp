@@ -22,6 +22,8 @@ class AuthRepostoryImpl @Inject constructor(
                 Resource.Success(authResult)
             } catch (e: IOException) {
                 Resource.Error(e.message.toString())
+            } catch (e: Exception) {
+                Resource.Error(e.message.toString())
             }
 
     }

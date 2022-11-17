@@ -4,4 +4,5 @@
     <string name="upload_starting">Uploading notes has started.....🎬🎬</string>
     <string name="upload_successful">Uploading notes is successful🤗❤️🤗.</string>
     <string name="upload_failed">Uploading notes has failed😔.Retrying in a minute 🤗❤️.</string>
+    <string name="upload_failed_no_notes">Uploading notes has failed😔.You have not added any note please do add a note 🤗❤️.</string>
 </resources>

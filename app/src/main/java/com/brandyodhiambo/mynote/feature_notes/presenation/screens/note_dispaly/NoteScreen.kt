@@ -122,34 +122,37 @@ fun NotesScreen(
                 if(state.notes.isEmpty()){
                     Loader()
                 }
-            }
-            LazyColumn(modifier = Modifier.fillMaxSize()) {
-                items(state.notes) { note ->
+                else{
+                    LazyColumn(modifier = Modifier.fillMaxSize()) {
+                        items(state.notes) { note ->
 
-                    NoteItem(
-                        note = note,
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .clickable {
-                                navigator.navigate(AddEditNoteScreenDestination(note.color))
-                                // navigator.navigate(AddEditNoteScreenDestination.route + "?noteId=${note.id}&noteColor=${note.color}")
-                            },
-                        onDeleteClick = {
-                            viewModel.onEvent(NotesEvent.DeleteNote(note))
-                            scope.launch {
-                                val result = scaffoldState.snackbarHostState.showSnackbar(
-                                    message = "Note deleted",
-                                    actionLabel = "Undo"
-                                )
-                                if (result == SnackbarResult.ActionPerformed) {
-                                    viewModel.onEvent(NotesEvent.RestoreNote)
+                            NoteItem(
+                                note = note,
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .clickable {
+                                        navigator.navigate(AddEditNoteScreenDestination(note.color))
+                                        // navigator.navigate(AddEditNoteScreenDestination.route + "?noteId=${note.id}&noteColor=${note.color}")
+                                    },
+                                onDeleteClick = {
+                                    viewModel.onEvent(NotesEvent.DeleteNote(note))
+                                    scope.launch {
+                                        val result = scaffoldState.snackbarHostState.showSnackbar(
+                                            message = "Note deleted",
+                                            actionLabel = "Undo"
+                                        )
+                                        if (result == SnackbarResult.ActionPerformed) {
+                                            viewModel.onEvent(NotesEvent.RestoreNote)
+                                        }
+                                    }
                                 }
-                            }
+                            )
+                            Spacer(modifier = Modifier.height(16.dp))
                         }
-                    )
-                    Spacer(modifier = Modifier.height(16.dp))
+                    }
                 }
             }
+
         }
     }
 }
